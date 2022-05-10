@@ -3,13 +3,32 @@ import Header from "../../components/header/Header";
 import "./home.css";
 
 export default function Home(){
+    const[accesstoken,setAccesstoken] = useState("");
     const[file,setFile] = useState(null);
+    const[message,setMessage] = useState("");
+    const [postid,setPostid] = useState("");
 
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+        setPostid("1");
+    }
+
+    const handleReset = async (e)=>{
+        e.preventDefault();
+        window.location.replace("/");
+    }
+    
     return(
         <>
         <Header />
         <div className="home">
-            <form className="feedForm">
+            {postid!=="" && (
+                <div className="feedSuccess">
+                    <span className="successMsg"> {message} Feed Posted Successfully....</span>
+                    <a href="/" className="feedLink">Check your posted Feed</a>
+                </div>
+            )}
+            <form className="feedForm" onSubmit={handleSubmit} onReset={handleReset}>
                 <div className="feedFormGroup">
                     <input 
                         type="text" 
@@ -17,6 +36,7 @@ export default function Home(){
                         placeholder="Your Facebook AccessToken" 
                         className="feedInput" 
                         autoFocus="true"
+                        onChange={e=>setAccesstoken(e.target.value)}
                     />
                     {file && (
                         <img src={URL.createObjectURL(file)} 
@@ -40,10 +60,12 @@ export default function Home(){
                     <textarea 
                         type="text" 
                         placeholder="Your Feed description..." 
-                        className="feedInput"> 
+                        className="feedInput"
+                        onChange={e=>setMessage(e.target.value)} > 
                     </textarea>
                 </div>
                 <button className="feedSubmit" type="submit">Share Feed</button>
+                <button className="feedReset" type="reset">New Feed</button>
             </form>
         </div>
         </>

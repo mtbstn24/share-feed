@@ -2,6 +2,20 @@
     padding-top: 20px;
 }
 
+.feedSuccess{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 60px;
+    background-color: rgb(152, 160, 160);
+}
+
+.successMsg{
+    margin-top: 15px;
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 .feedForm{
     position: relative;
 }
@@ -58,6 +72,19 @@
     right: 50px;
     color: white;
     background-color: tomato;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.feedReset{
+    position: absolute;
+    top: 20px;
+    right: 200px;
+    color: white;
+    background-color: teal;
     padding: 10px;
     border: none;
     border-radius: 10px;
