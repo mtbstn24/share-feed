@@ -9,20 +9,27 @@ export default function Home(){
     const[message,setMessage] = useState("");
     const [postid,setPostid] = useState("");
     const[postmsg,setPostmsg] = useState("");
-    const[poststatus,setPoststatus] = useState(false);
+    const[posturl,setPosturl] = useState("");
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        // if(file){
+        //     console.log(file);
+        //     setPosturl(`https://graph.facebook.com/me/photos?access_token=${accesstoken}
+        //     &url=${file.name}&message=${message}`)
+        // }else{
+        //     setPosturl(`https://graph.facebook.com/me/feed?access_token=${accesstoken}
+        //     &message=${message}`)
+        // }
+        setPosturl(`https://graph.facebook.com/me/feed?access_token=${accesstoken}
+        &message=${message}`)
         try{
-            const res = await axios.post(`https://graph.facebook.com/me/feed?access_token=${accesstoken}
-            &message=${message}`)
+            const res = await axios.post(`${posturl}`)
             setPostid(res.data.id);
             setPostmsg(" Feed Posted Successfully....")
-            setPoststatus(true)
         }catch(err){
             console.log(err);
             setPostmsg(" Feed Post Unsuccessful...")
-            setPoststatus(false)
         }
     }
 
@@ -35,17 +42,15 @@ export default function Home(){
         <>
         <Header />
         <div className="home">
-            {postid!=="" && (
                 <div className="feedSuccess">
-                    <span className="successMsg"> Feed Posted Successfully....</span>
-                    {poststatus && (
+                    <span className="successMsg"> {postmsg} </span>
+                    {postid!=="" && (
                         <a href={`https://www.facebook.com/${postid}`} className="feedLink" 
                         style={{textDecoration: "none"}}>
                             Click here to get the Feed Link
                         </a>
                     )}
                 </div>
-            )}
             <form className="feedForm" onSubmit={handleSubmit} onReset={handleReset}>
                 <div className="feedFormGroup">
                     <input 
