@@ -6,14 +6,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 60px;
+    height: 90px;
     background-color: rgb(152, 160, 160);
 }
 
 .successMsg{
     margin-top: 15px;
-    font-size: 20px;
+    font-size: 18px;
     font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.feedLink{
+    margin-top: 10px;
+    font-size: 18px;
 }
 
 .feedForm{
@@ -81,8 +86,8 @@
 
 .feedReset{
     position: absolute;
-    top: 20px;
-    right: 200px;
+    top: 60px;
+    right: 50px;
     color: white;
     background-color: teal;
     padding: 10px;

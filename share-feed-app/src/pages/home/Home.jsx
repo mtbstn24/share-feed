@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import Header from "../../components/header/Header";
 import "./home.css";
@@ -7,10 +8,22 @@ export default function Home(){
     const[file,setFile] = useState(null);
     const[message,setMessage] = useState("");
     const [postid,setPostid] = useState("");
+    const[postmsg,setPostmsg] = useState("");
+    const[poststatus,setPoststatus] = useState(false);
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        setPostid("1");
+        try{
+            const res = await axios.post(`https://graph.facebook.com/me/feed?access_token=${accesstoken}
+            &message=${message}`)
+            setPostid(res.data.id);
+            setPostmsg(" Feed Posted Successfully....")
+            setPoststatus(true)
+        }catch(err){
+            console.log(err);
+            setPostmsg(" Feed Post Unsuccessful...")
+            setPoststatus(false)
+        }
     }
 
     const handleReset = async (e)=>{
@@ -24,8 +37,13 @@ export default function Home(){
         <div className="home">
             {postid!=="" && (
                 <div className="feedSuccess">
-                    <span className="successMsg"> {message} Feed Posted Successfully....</span>
-                    <a href="/" className="feedLink">Check your posted Feed</a>
+                    <span className="successMsg"> Feed Posted Successfully....</span>
+                    {poststatus && (
+                        <a href={`https://www.facebook.com/${postid}`} className="feedLink" 
+                        style={{textDecoration: "none"}}>
+                            Click here to get the Feed Link
+                        </a>
+                    )}
                 </div>
             )}
             <form className="feedForm" onSubmit={handleSubmit} onReset={handleReset}>
@@ -35,7 +53,8 @@ export default function Home(){
                         id="feedInput" 
                         placeholder="Your Facebook AccessToken" 
                         className="feedInput" 
-                        autoFocus="true"
+                        autoFocus={true}
+                        required={true}
                         onChange={e=>setAccesstoken(e.target.value)}
                     />
                     {file && (
@@ -51,6 +70,7 @@ export default function Home(){
                         className="feedImage" 
                     />
                     )}
+                    
                     <label htmlFor="fileInput">
                         <i className="feedIcon fa-solid fa-plus"></i>
                     </label>
