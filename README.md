@@ -1,7 +1,7 @@
 # ShareFeed
 
 ## Prroject description
-- A simple react-app to publish the a post to a facebook page without requiring to log in to the account seperately.
+- A simple react-app to publish the a post to a facebook page without requiring to log in to the account separately.
 
 ## Technologies used
 - React JS => JavaScript library for building UIs
